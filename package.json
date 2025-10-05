@@ -1,0 +1,31 @@
+{
+  "name": "know-your-city",
+  "version": "1.0.0",
+  "description": "A MERN stack application for discovering your city",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "install-all": "npm run install-server && npm run install-client"
+  },
+  "keywords": [
+    "mern",
+    "react",
+    "node",
+    "mongodb",
+    "city",
+    "admin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "framer-motion": "^12.23.22",
+    "tailwindcss": "^4.1.14"
+  }
+}
