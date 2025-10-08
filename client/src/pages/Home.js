@@ -246,7 +246,7 @@ const Home = () => {
                 </div>
               )
             )}
-          </div>
+          </motion.div>
           
           <div className="text-center mt-12">
             <Link
