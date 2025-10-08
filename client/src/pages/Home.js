@@ -11,30 +11,45 @@ const Home = () => {
   const { data: featuredCities = [], isLoading: citiesLoading } = useQuery(
     'featured-cities',
     async () => {
-      // First try to get featured cities
-      const featuredResponse = await axios.get('/api/cities?featured=true&limit=3');
-      if (featuredResponse.data && featuredResponse.data.length > 0) {
-        return featuredResponse.data;
+      try {
+        // First try to get featured cities
+        const featuredResponse = await axios.get('/api/cities?featured=true&limit=3');
+        if (featuredResponse.data && Array.isArray(featuredResponse.data) && featuredResponse.data.length > 0) {
+          return featuredResponse.data;
+        }
+        // If no featured cities, get regular cities
+        const regularResponse = await axios.get('/api/cities?limit=3');
+        return Array.isArray(regularResponse.data) ? regularResponse.data : [];
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+        return [];
       }
-      // If no featured cities, get regular cities
-      const regularResponse = await axios.get('/api/cities?limit=3');
-      return regularResponse.data;
     }
   );
 
   // Fetch statistics from database
-  const { data: stats, isLoading: statsLoading } = useQuery(
+  const { data: stats = [], isLoading: statsLoading } = useQuery(
     'home-stats',
     async () => {
-      const response = await axios.get('/api/stats');
-      const data = response.data;
-      
-      return [
-        { icon: MapPin, label: 'Cities', value: `${data.cities}+` },
-        { icon: Star, label: 'Places', value: `${data.places}+` },
-        { icon: Users, label: 'Users', value: `${data.users}+` },
-        { icon: TrendingUp, label: 'Reviews', value: `${data.reviews}+` }
-      ];
+      try {
+        const response = await axios.get('/api/stats');
+        const data = response.data;
+        
+        return [
+          { icon: MapPin, label: 'Cities', value: `${data.cities || 0}+` },
+          { icon: Star, label: 'Places', value: `${data.places || 0}+` },
+          { icon: Users, label: 'Users', value: `${data.users || 0}+` },
+          { icon: TrendingUp, label: 'Reviews', value: `${data.reviews || 0}+` }
+        ];
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        return [
+          { icon: MapPin, label: 'Cities', value: '0+' },
+          { icon: Star, label: 'Places', value: '0+' },
+          { icon: Users, label: 'Users', value: '0+' },
+          { icon: TrendingUp, label: 'Reviews', value: '0+' }
+        ];
+      }
     }
   );
 
@@ -65,7 +80,7 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              stats?.map((stat, index) => (
+              Array.isArray(stats) ? stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="flex justify-center mb-4">
                     <stat.icon className="h-12 w-12 text-primary-600" />
@@ -73,7 +88,11 @@ const Home = () => {
                   <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
                   <div className="text-gray-600">{stat.label}</div>
                 </div>
-              ))
+              )) : (
+                <div className="col-span-full text-center py-8">
+                  <p className="text-gray-500">Statistics unavailable</p>
+                </div>
+              )
             )}
           </div>
         </div>
@@ -105,7 +124,7 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              featuredCities.map((city) => (
+              Array.isArray(featuredCities) ? featuredCities.map((city) => (
                 <div key={city._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="relative h-48">
                     {city.images && city.images.length > 0 ? (
@@ -136,7 +155,11 @@ const Home = () => {
                     </Link>
                   </div>
                 </div>
-              ))
+              )) : (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-gray-500">No cities available at the moment.</p>
+                </div>
+              )
             )}
           </div>
           
