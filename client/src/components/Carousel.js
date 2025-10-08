@@ -17,24 +17,24 @@ const Carousel = () => {
     },
     {
       id: 2,
-      type: 'video',
-      src: 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=165&oauth2_token_id=57447761',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       title: 'Urban Adventures Await',
       subtitle: 'Experience the pulse of vibrant cities',
       description: 'Walk through bustling streets, discover hidden alleys, and feel the energy of urban life.'
     },
     {
       id: 3,
-      type: 'video',
-      src: 'https://player.vimeo.com/external/291648067.sd.mp4?s=7f4aa3f8bd3ae457f1e4a189a19a09b564cc5f1b&profile_id=164&oauth2_token_id=57447761',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       title: 'Night City Lights',
       subtitle: 'Explore cities after dark',
       description: 'Witness the transformation of cities as they light up with neon signs and urban energy.'
     },
     {
       id: 4,
-      type: 'video',
-      src: 'https://player.vimeo.com/external/320351179.sd.mp4?s=8b9a4b8c8b9a4b8c8b9a4b8c8b9a4b8c8b9a4b8c&profile_id=164&oauth2_token_id=57447761',
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       title: 'Cultural Experiences',
       subtitle: 'Immerse yourself in local culture',
       description: 'From street food to historic landmarks, experience the authentic soul of every city.'
@@ -84,6 +84,7 @@ const Carousel = () => {
             className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
+            style={{ backgroundColor: '#1f2937' }} // Dark gray fallback background
           >
             {slide.type === 'video' ? (
               <video
@@ -94,6 +95,11 @@ const Carousel = () => {
                 playsInline
                 preload="auto"
                 key={slide.id}
+                onError={(e) => {
+                  console.log('Video failed to load:', slide.src);
+                  // Fallback to image if video fails
+                  e.target.style.display = 'none';
+                }}
               >
                 <source src={slide.src} type="video/mp4" />
                 Your browser does not support the video tag.
@@ -103,6 +109,11 @@ const Carousel = () => {
                 src={slide.src}
                 alt={slide.title}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.log('Image failed to load:', slide.src);
+                  // Fallback to a solid color background
+                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiBmaWxsPSIjMWYyOTM3Ii8+Cjx0ZXh0IHg9Ijk2MCIgeT0iNTQwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DaXR5IEltYWdlPC90ZXh0Pgo8L3N2Zz4K';
+                }}
               />
             )}
             
