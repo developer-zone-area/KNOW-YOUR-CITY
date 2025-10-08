@@ -9,35 +9,43 @@ const Carousel = () => {
   const slides = [
     {
       id: 1,
-      type: 'video',
-      src: 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=165&oauth2_token_id=57447761',
-      title: 'Discover Amazing Cities',
-      subtitle: 'Explore the world\'s most beautiful destinations',
-      description: 'From bustling metropolises to serene landscapes, discover what makes each city unique.'
+      type: 'image',
+      src: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      title: 'Welcome to Know Your City',
+      subtitle: 'Discover the world\'s most amazing destinations',
+      description: 'Your ultimate guide to exploring cities, finding hidden gems, and creating unforgettable travel experiences.'
     },
     {
       id: 2,
+      type: 'video',
+      src: 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=165&oauth2_token_id=57447761',
+      title: 'Urban Adventures Await',
+      subtitle: 'Experience the pulse of vibrant cities',
+      description: 'Walk through bustling streets, discover hidden alleys, and feel the energy of urban life.'
+    },
+    {
+      id: 3,
+      type: 'video',
+      src: 'https://player.vimeo.com/external/291648067.sd.mp4?s=7f4aa3f8bd3ae457f1e4a189a19a09b564cc5f1b&profile_id=164&oauth2_token_id=57447761',
+      title: 'Night City Lights',
+      subtitle: 'Explore cities after dark',
+      description: 'Witness the transformation of cities as they light up with neon signs and urban energy.'
+    },
+    {
+      id: 4,
+      type: 'video',
+      src: 'https://player.vimeo.com/external/320351179.sd.mp4?s=8b9a4b8c8b9a4b8c8b9a4b8c8b9a4b8c8b9a4b8c&profile_id=164&oauth2_token_id=57447761',
+      title: 'Cultural Experiences',
+      subtitle: 'Immerse yourself in local culture',
+      description: 'From street food to historic landmarks, experience the authentic soul of every city.'
+    },
+    {
+      id: 5,
       type: 'image',
       src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       title: 'Find Hidden Gems',
       subtitle: 'Uncover local favorites and secret spots',
       description: 'Discover restaurants, attractions, and places that locals love.'
-    },
-    {
-      id: 3,
-      type: 'image',
-      src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      title: 'Plan Your Journey',
-      subtitle: 'Create unforgettable travel experiences',
-      description: 'Get recommendations, read reviews, and plan your perfect city adventure.'
-    },
-    {
-      id: 4,
-      type: 'image',
-      src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      title: 'Connect with Locals',
-      subtitle: 'Experience cities like a local',
-      description: 'Share experiences, read authentic reviews, and connect with fellow travelers.'
     }
   ];
 
@@ -84,6 +92,7 @@ const Carousel = () => {
                 muted
                 loop
                 playsInline
+                preload="metadata"
               >
                 <source src={slide.src} type="video/mp4" />
                 Your browser does not support the video tag.
@@ -97,30 +106,30 @@ const Carousel = () => {
             )}
             
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
             
             {/* Content */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white max-w-4xl mx-auto px-4">
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
                   {slide.title}
                 </h1>
-                <h2 className="text-2xl md:text-3xl mb-4 text-gray-200 animate-fade-in-delay">
+                <h2 className="text-2xl md:text-3xl mb-4 text-gray-200 animate-fade-in-delay font-medium">
                   {slide.subtitle}
                 </h2>
-                <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl mx-auto animate-fade-in-delay-2">
+                <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl mx-auto animate-fade-in-delay-2 leading-relaxed">
                   {slide.description}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-3">
                   <Link
                     to="/cities"
-                    className="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                    className="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2"
                   >
                     <span>Explore Cities</span>
                   </Link>
                   <Link
                     to="/places"
-                    className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors flex items-center space-x-2"
+                    className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10 hover:bg-white flex items-center space-x-2"
                   >
                     <span>Browse Places</span>
                   </Link>
