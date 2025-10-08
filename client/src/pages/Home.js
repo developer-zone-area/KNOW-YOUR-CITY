@@ -239,7 +239,7 @@ const Home = () => {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </div>
-                </div>
+                </motion.div>
               )) : (
                 <div className="col-span-full text-center py-12">
                   <p className="text-gray-500">No cities available at the moment.</p>
