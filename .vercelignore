@@ -1,4 +1,31 @@
+# Server files
 server/
+node_modules/
+package.json
+package-lock.json
+
+# Documentation files
+README.md
 *.md
-railway.json
+!client/README.md
+
+# Deployment configs
 render.yaml
+railway.json
+
+# Environment files
+.env
+.env.local
+.env.production
+env.production.template
+
+# Git files
+.git/
+.gitignore
+
+# Test files
+test-deployment.js
+
+# Build artifacts
+build/
+dist/

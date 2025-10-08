@@ -86,36 +86,16 @@ const Carousel = () => {
             }`}
             style={{ backgroundColor: '#1f2937' }} // Dark gray fallback background
           >
-            {slide.type === 'video' ? (
-              <video
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                key={slide.id}
-                onError={(e) => {
-                  console.log('Video failed to load:', slide.src);
-                  // Fallback to image if video fails
-                  e.target.style.display = 'none';
-                }}
-              >
-                <source src={slide.src} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img
-                src={slide.src}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  console.log('Image failed to load:', slide.src);
-                  // Fallback to a solid color background
-                  e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiBmaWxsPSIjMWYyOTM3Ii8+Cjx0ZXh0IHg9Ijk2MCIgeT0iNTQwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DaXR5IEltYWdlPC90ZXh0Pgo8L3N2Zz4K';
-                }}
-              />
-            )}
+            <img
+              src={slide.src}
+              alt={slide.title}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                console.log('Image failed to load:', slide.src);
+                // Fallback to a solid color background
+                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiBmaWxsPSIjMWYyOTM3Ii8+Cjx0ZXh0IHg9Ijk2MCIgeT0iNTQwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DaXR5IEltYWdlPC90ZXh0Pgo8L3N2Zz4K';
+              }}
+            />
             
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
