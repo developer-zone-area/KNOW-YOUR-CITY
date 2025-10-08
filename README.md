@@ -95,7 +95,7 @@ npm install
 Create a `.env` file in the `server` directory:
 ```env
 # MongoDB Atlas Connection
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/know-your-city?retryWrites=true&w=majority&appName=knowYourCity
+MONGODB_URI=mongodb+srv://your-username:your-password@your-cluster.mongodb.net/know-your-city?retryWrites=true&w=majority&appName=knowYourCity
 
 # JWT Secret
 JWT_SECRET=your-super-secret-jwt-key-here-make-it-long-and-random
