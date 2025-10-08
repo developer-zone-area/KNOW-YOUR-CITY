@@ -18,6 +18,7 @@ import PlaceDetail from './pages/PlaceDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import AuthCallback from './pages/AuthCallback';
 
 // Import admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -53,6 +54,7 @@ function AppContent() {
                 <Route path="/places/:id" element={<PlaceDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/auth/callback" element={<AuthCallback />} />
                 
                 {/* Protected Routes */}
                 <Route path="/profile" element={

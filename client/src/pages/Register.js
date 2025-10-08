@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff, User, Mail, Lock } from 'lucide-react';
+import OAuthButtons from '../components/auth/OAuthButtons';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -193,13 +194,13 @@ const Register = () => {
             />
             <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
               I agree to the{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <button className="text-primary-600 hover:text-primary-500">
                 Terms and Conditions
-              </a>{' '}
+              </button>{' '}
               and{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <button className="text-primary-600 hover:text-primary-500">
                 Privacy Policy
-              </a>
+              </button>
             </label>
           </div>
           {errors.terms && (
@@ -219,6 +220,8 @@ const Register = () => {
               )}
             </button>
           </div>
+
+          <OAuthButtons />
         </form>
       </div>
     </div>

@@ -19,7 +19,7 @@ const Navbar = ({ isTransparent = false }) => {
   };
 
   const isActive = (path) => location.pathname === path;
-  const shouldBeTransparent = isTransparent || shouldBeTransparent;
+  const shouldBeTransparent = isTransparent;
 
   const handleGlobalSearch = (e) => {
     e.preventDefault();

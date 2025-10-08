@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
-import { Star, MapPin, Phone, Globe, Clock, DollarSign } from 'lucide-react';
+import { Star, MapPin, Phone, Globe } from 'lucide-react';
 
 const PlaceDetail = () => {
   const { id } = useParams();
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const { data: place, isLoading, error } = useQuery(
     ['place', id],

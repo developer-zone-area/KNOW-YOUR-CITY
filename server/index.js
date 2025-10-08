@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const session = require('express-session');
+const passport = require('./config/passport');
 
 // Load environment variables
 dotenv.config();
@@ -10,20 +12,39 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
+
+// Session configuration
+app.use(session({
+  secret: process.env.JWT_SECRET || 'fallback-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/know-your-city', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/know-your-city';
+
+mongoose.connect(mongoURI)
 .then(() => {
-  console.log('Connected to MongoDB');
+  console.log('✅ Connected to MongoDB Atlas successfully!');
+  console.log(`📊 Database: ${mongoose.connection.name}`);
 })
 .catch((error) => {
-  console.error('MongoDB connection error:', error);
+  console.error('❌ MongoDB connection error:', error.message);
+  console.error('💡 Make sure your MONGODB_URI environment variable is set correctly');
 });
 
 // Routes
@@ -31,6 +52,10 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/cities', require('./routes/cities'));
 app.use('/api/places', require('./routes/places'));
+// Image routes disabled - using direct file uploads
+
+// Serve uploaded images
+app.use('/uploads', express.static('uploads'));
 
 // Statistics endpoint
 app.get('/api/stats', async (req, res) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { User, Mail, Edit, Save, X } from 'lucide-react';
+import { User, Edit, Save, X } from 'lucide-react';
 
 const Profile = () => {
   const { user, updateUser } = useAuth();

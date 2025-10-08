@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { Search, Filter, Star, MapPin, Building2, Navigation } from 'lucide-react';
+import { Search, Star, MapPin, Building2, Navigation } from 'lucide-react';
 
 const Places = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,7 +46,7 @@ const Places = () => {
 
   const openInMaps = (place) => {
     const { latitude, longitude } = place.coordinates;
-    const address = place.address?.fullAddress || `${place.name}, ${place.city?.name}`;
+    // const address = place.address?.fullAddress || `${place.name}, ${place.city?.name}`; // Available for future use
     
     // Try to open in Google Maps
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;

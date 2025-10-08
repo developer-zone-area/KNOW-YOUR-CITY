@@ -5,7 +5,7 @@ import { Plus, Edit, Trash2, Search } from 'lucide-react';
 
 const AdminCities = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [isAddingCity, setIsAddingCity] = useState(false);
+  // const [isAddingCity, setIsAddingCity] = useState(false); // Available for future use
 
   const { data: cities, isLoading, refetch } = useQuery(
     'admin-cities',
@@ -50,7 +50,7 @@ const AdminCities = () => {
             <p className="text-gray-600 mt-2">Add, edit, and manage cities in your platform</p>
           </div>
           <button
-            onClick={() => setIsAddingCity(true)}
+            onClick={() => console.log('Add city functionality coming soon')}
             className="btn-primary flex items-center space-x-2"
           >
             <Plus className="h-5 w-5" />

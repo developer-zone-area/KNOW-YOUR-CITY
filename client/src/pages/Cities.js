@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { MapPin, Search, Filter, Star, Navigation } from 'lucide-react';
+import { MapPin, Search, Star, Navigation } from 'lucide-react';
 
 const Cities = () => {
   const [searchTerm, setSearchTerm] = useState('');

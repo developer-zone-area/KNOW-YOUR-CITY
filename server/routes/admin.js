@@ -149,6 +149,23 @@ router.put('/users/:id/role', async (req, res) => {
   }
 });
 
+router.delete('/users/:id', async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Also delete user's reviews
+    await Review.deleteMany({ user: req.params.id });
+    
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Delete user error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Reviews management
 router.get('/reviews', async (req, res) => {
   try {
@@ -179,6 +196,20 @@ router.put('/reviews/:id/status', async (req, res) => {
     res.json(review);
   } catch (error) {
     console.error('Update review status error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.delete('/reviews/:id', async (req, res) => {
+  try {
+    const review = await Review.findByIdAndDelete(req.params.id);
+    if (!review) {
+      return res.status(404).json({ message: 'Review not found' });
+    }
+    
+    res.json({ message: 'Review deleted successfully' });
+  } catch (error) {
+    console.error('Delete review error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });

@@ -2,17 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import { MapPin, Star, Users, TrendingUp, ArrowRight, Search } from 'lucide-react';
+import { MapPin, Star, Users, TrendingUp, ArrowRight } from 'lucide-react';
 import Carousel from '../components/Carousel';
 import Navbar from '../components/layout/Navbar';
 
 const Home = () => {
-  // Fetch featured cities from database
+  // Fetch cities from database (show regular cities if no featured ones)
   const { data: featuredCities = [], isLoading: citiesLoading } = useQuery(
     'featured-cities',
     async () => {
-      const response = await axios.get('/api/cities?featured=true&limit=3');
-      return response.data;
+      // First try to get featured cities
+      const featuredResponse = await axios.get('/api/cities?featured=true&limit=3');
+      if (featuredResponse.data && featuredResponse.data.length > 0) {
+        return featuredResponse.data;
+      }
+      // If no featured cities, get regular cities
+      const regularResponse = await axios.get('/api/cities?limit=3');
+      return regularResponse.data;
     }
   );
 
@@ -78,7 +84,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Featured Cities
+              Popular Cities
             </h2>
             <p className="text-xl text-gray-600">
               Explore these amazing cities and discover what makes them special

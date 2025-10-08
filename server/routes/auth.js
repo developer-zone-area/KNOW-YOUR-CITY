@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+const passport = require('passport');
 const User = require('../models/User');
 const { auth } = require('../middleware/auth');
 
@@ -110,7 +111,8 @@ router.get('/me', auth, async (req, res) => {
         name: req.user.name,
         email: req.user.email,
         role: req.user.role,
-        avatar: req.user.avatar
+        avatar: req.user.avatar,
+        provider: req.user.provider
       }
     });
   } catch (error) {
@@ -118,5 +120,63 @@ router.get('/me', auth, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Google OAuth Routes (only if configured)
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  router.get('/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+  }));
+
+router.get('/google/callback', 
+  passport.authenticate('google', { session: false }),
+  (req, res) => {
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: req.user._id },
+      process.env.JWT_SECRET || 'fallback-secret',
+      { expiresIn: '7d' }
+    );
+
+    // Redirect to frontend with token
+    res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/auth/callback?token=${token}&provider=google`);
+  }
+  );
+} else {
+  router.get('/google', (req, res) => {
+    res.status(501).json({ message: 'Google OAuth not configured' });
+  });
+  router.get('/google/callback', (req, res) => {
+    res.status(501).json({ message: 'Google OAuth not configured' });
+  });
+}
+
+// Facebook OAuth Routes (only if configured)
+if (process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {
+router.get('/facebook', passport.authenticate('facebook', {
+  scope: ['email']
+}));
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { session: false }),
+  (req, res) => {
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: req.user._id },
+      process.env.JWT_SECRET || 'fallback-secret',
+      { expiresIn: '7d' }
+    );
+
+    // Redirect to frontend with token
+    res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/auth/callback?token=${token}&provider=facebook`);
+  }
+  );
+} else {
+  router.get('/facebook', (req, res) => {
+    res.status(501).json({ message: 'Facebook OAuth not configured' });
+  });
+  router.get('/facebook/callback', (req, res) => {
+    res.status(501).json({ message: 'Facebook OAuth not configured' });
+  });
+}
 
 module.exports = router;
