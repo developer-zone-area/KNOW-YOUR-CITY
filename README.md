@@ -8,6 +8,12 @@ A comprehensive MERN stack application for discovering and exploring cities and 
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
 ![Express](https://img.shields.io/badge/Express-4.18+-000000?logo=express)
 
+## 🌐 Live Demo
+
+- **🌐 Frontend:** [https://know-your-city-theta.vercel.app/](https://know-your-city-theta.vercel.app/)
+- **⚙️ Backend API:** [https://know-your-city.onrender.com/](https://know-your-city.onrender.com/)
+- **📊 Admin Panel:** [https://know-your-city-theta.vercel.app/admin](https://know-your-city-theta.vercel.app/admin)
+
 ## 🚀 Features
 
 ### 🌐 **Public Features**
