@@ -55,7 +55,7 @@ REACT_APP_API_URL=https://know-your-city.onrender.com
 
 **Environment Variables:**
 ```
-MONGODB_URI=mongodb+srv://anand:anand@knowyourcity.owqosna.mongodb.net/know-your-city?retryWrites=true&w=majority&appName=knowYourCity
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/know-your-city?retryWrites=true&w=majority&appName=knowYourCity
 JWT_SECRET=your-super-secret-jwt-key-here-make-it-long-and-random-12345
 NODE_ENV=production
 PORT=10000
