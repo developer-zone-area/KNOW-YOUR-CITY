@@ -1,10 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { motion } from 'framer-motion';
 import api from '../config/api';
 import { MapPin, Star, Users, TrendingUp, ArrowRight } from 'lucide-react';
 import Carousel from '../components/Carousel';
 import Navbar from '../components/layout/Navbar';
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100
+    }
+  }
+};
+
+const cardHoverVariants = {
+  rest: { scale: 1, boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' },
+  hover: {
+    scale: 1.03,
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    transition: {
+      type: 'spring',
+      stiffness: 400,
+      damping: 10
+    }
+  }
+};
 
 const Home = () => {
   // Fetch cities from database (show regular cities if no featured ones)
@@ -65,9 +102,15 @@ const Home = () => {
       </div>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
             {statsLoading ? (
               // Loading skeleton
               Array.from({ length: 4 }).map((_, index) => (
@@ -81,36 +124,72 @@ const Home = () => {
               ))
             ) : (
               Array.isArray(stats) ? stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="flex justify-center mb-4">
-                    <stat.icon className="h-12 w-12 text-primary-600" />
-                  </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ y: -5 }}
+                  className="text-center cursor-default"
+                >
+                  <motion.div
+                    className="flex justify-center mb-4"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ type: 'spring', stiffness: 200, delay: index * 0.1 }}
+                  >
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <stat.icon className="h-12 w-12 text-primary-600" />
+                    </motion.div>
+                  </motion.div>
+                  <motion.div
+                    className="text-3xl font-bold text-gray-900 mb-2"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + 0.2 }}
+                  >
+                    {stat.value}
+                  </motion.div>
                   <div className="text-gray-600">{stat.label}</div>
-                </div>
+                </motion.div>
               )) : (
                 <div className="col-span-full text-center py-8">
                   <p className="text-gray-500">Statistics unavailable</p>
                 </div>
               )
             )}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Featured Cities */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Popular Cities
             </h2>
             <p className="text-xl text-gray-600">
               Explore these amazing cities and discover what makes them special
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {citiesLoading ? (
               // Loading skeleton
               Array.from({ length: 3 }).map((_, index) => (
@@ -124,8 +203,14 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              Array.isArray(featuredCities) ? featuredCities.map((city) => (
-                <div key={city._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              Array.isArray(featuredCities) ? featuredCities.map((city, index) => (
+                <motion.div
+                  key={city._id}
+                  variants={itemVariants}
+                  whileHover="hover"
+                  initial="rest"
+                  className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
+                >
                   <div className="relative h-48">
                     {city.images && city.images.length > 0 ? (
                       <img
