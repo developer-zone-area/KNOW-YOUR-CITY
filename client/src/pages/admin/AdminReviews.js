@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
+import api from '../../config/api';
 import { MessageSquare, Search, Star, Trash2, Eye, ThumbsUp, ThumbsDown, Filter, Calendar, User } from 'lucide-react';
 
 const AdminReviews = () => {
@@ -13,7 +13,7 @@ const AdminReviews = () => {
   const { data: reviews, isLoading, error } = useQuery(
     'admin-reviews',
     async () => {
-      const response = await axios.get('/api/admin/reviews');
+      const response = await api.get('/api/admin/reviews');
       return response.data;
     }
   );
@@ -21,7 +21,7 @@ const AdminReviews = () => {
   // Update review status mutation
   const updateReviewStatusMutation = useMutation(
     async ({ reviewId, status }) => {
-      const response = await axios.put(`/api/admin/reviews/${reviewId}/status`, {
+      const response = await api.put(`/api/admin/reviews/${reviewId}/status`, {
         status
       });
       return response.data;
@@ -36,7 +36,7 @@ const AdminReviews = () => {
   // Delete review mutation
   const deleteReviewMutation = useMutation(
     async (reviewId) => {
-      const response = await axios.delete(`/api/admin/reviews/${reviewId}`);
+      const response = await api.delete(`/api/admin/reviews/${reviewId}`);
       return response.data;
     },
     {

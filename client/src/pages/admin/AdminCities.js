@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../../config/api';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 
 const AdminCities = () => {
@@ -10,7 +10,7 @@ const AdminCities = () => {
   const { data: cities, isLoading, refetch } = useQuery(
     'admin-cities',
     async () => {
-      const response = await axios.get('/api/admin/cities');
+      const response = await api.get('/api/admin/cities');
       return response.data;
     }
   );
@@ -18,7 +18,7 @@ const AdminCities = () => {
   const handleDeleteCity = async (cityId) => {
     if (window.confirm('Are you sure you want to delete this city?')) {
       try {
-        await axios.delete(`/api/admin/cities/${cityId}`);
+        await api.delete(`/api/admin/cities/${cityId}`);
         refetch();
       } catch (error) {
         console.error('Error deleting city:', error);

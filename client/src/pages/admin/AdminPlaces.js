@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../../config/api';
 import { Check, X, Search, Eye } from 'lucide-react';
 
 const AdminPlaces = () => {
@@ -10,14 +10,14 @@ const AdminPlaces = () => {
   const { data: places, isLoading, refetch } = useQuery(
     'admin-places',
     async () => {
-      const response = await axios.get('/api/admin/places');
+      const response = await api.get('/api/admin/places');
       return response.data;
     }
   );
 
   const handleStatusChange = async (placeId, newStatus) => {
     try {
-      await axios.put(`/api/admin/places/${placeId}/status`, { status: newStatus });
+      await api.put(`/api/admin/places/${placeId}/status`, { status: newStatus });
       refetch();
     } catch (error) {
       console.error('Error updating place status:', error);

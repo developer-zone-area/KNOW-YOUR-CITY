@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../config/api';
 import { MapPin, Star, Users, TrendingUp, ArrowRight } from 'lucide-react';
 import Carousel from '../components/Carousel';
 import Navbar from '../components/layout/Navbar';
@@ -13,12 +13,12 @@ const Home = () => {
     async () => {
       try {
         // First try to get featured cities
-        const featuredResponse = await axios.get('/api/cities?featured=true&limit=3');
+        const featuredResponse = await api.get('/api/cities?featured=true&limit=3');
         if (featuredResponse.data && Array.isArray(featuredResponse.data) && featuredResponse.data.length > 0) {
           return featuredResponse.data;
         }
         // If no featured cities, get regular cities
-        const regularResponse = await axios.get('/api/cities?limit=3');
+        const regularResponse = await api.get('/api/cities?limit=3');
         return Array.isArray(regularResponse.data) ? regularResponse.data : [];
       } catch (error) {
         console.error('Error fetching cities:', error);
@@ -32,7 +32,7 @@ const Home = () => {
     'home-stats',
     async () => {
       try {
-        const response = await axios.get('/api/stats');
+        const response = await api.get('/api/stats');
         const data = response.data;
         
         return [

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
+import api from '../../config/api';
 import { Users, Search, Edit, Trash2, Shield, Mail, Calendar, Eye } from 'lucide-react';
 
 const AdminUsers = () => {
@@ -12,7 +12,7 @@ const AdminUsers = () => {
   const { data: users, isLoading, error } = useQuery(
     'admin-users',
     async () => {
-      const response = await axios.get('/api/admin/users');
+      const response = await api.get('/api/admin/users');
       return response.data;
     }
   );
@@ -20,7 +20,7 @@ const AdminUsers = () => {
   // Update user role mutation
   const updateUserRoleMutation = useMutation(
     async ({ userId, newRole }) => {
-      const response = await axios.put(`/api/admin/users/${userId}/role`, {
+      const response = await api.put(`/api/admin/users/${userId}/role`, {
         role: newRole
       });
       return response.data;
@@ -35,7 +35,7 @@ const AdminUsers = () => {
   // Delete user mutation
   const deleteUserMutation = useMutation(
     async (userId) => {
-      const response = await axios.delete(`/api/admin/users/${userId}`);
+      const response = await api.delete(`/api/admin/users/${userId}`);
       return response.data;
     },
     {

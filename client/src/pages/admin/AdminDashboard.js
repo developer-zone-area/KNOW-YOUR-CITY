@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../../config/api';
 import { 
   MapPin, 
   Building2, 
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   const { data: stats, isLoading, error } = useQuery(
     'admin-stats',
     async () => {
-      const response = await axios.get('/api/admin/dashboard');
+      const response = await api.get('/api/admin/dashboard');
       return response.data.stats;
     }
   );

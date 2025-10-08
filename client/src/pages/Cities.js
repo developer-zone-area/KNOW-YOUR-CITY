@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../config/api';
 import { MapPin, Search, Star, Navigation } from 'lucide-react';
 
 const Cities = () => {
@@ -26,7 +26,7 @@ const Cities = () => {
         if (selectedCountry) params.append('country', selectedCountry);
         if (showFeatured) params.append('featured', 'true');
 
-        const response = await axios.get(`/api/cities?${params}`);
+        const response = await api.get(`/api/cities?${params}`);
         return Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error('Error fetching cities:', error);
@@ -40,7 +40,7 @@ const Cities = () => {
     'states',
     async () => {
       try {
-        const response = await axios.get('/api/cities/states');
+        const response = await api.get('/api/cities/states');
         return Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error('Error fetching states:', error);
@@ -54,7 +54,7 @@ const Cities = () => {
     'countries',
     async () => {
       try {
-        const response = await axios.get('/api/cities/countries');
+        const response = await api.get('/api/cities/countries');
         return Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error('Error fetching countries:', error);

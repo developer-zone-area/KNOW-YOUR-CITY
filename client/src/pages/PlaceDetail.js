@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../config/api';
 import { useAuth } from '../contexts/AuthContext';
 import { Star, MapPin, Phone, Globe } from 'lucide-react';
 
@@ -12,7 +12,7 @@ const PlaceDetail = () => {
   const { data: place, isLoading, error } = useQuery(
     ['place', id],
     async () => {
-      const response = await axios.get(`/api/places/${id}`);
+      const response = await api.get(`/api/places/${id}`);
       return response.data;
     }
   );
@@ -20,7 +20,7 @@ const PlaceDetail = () => {
   const { data: reviews, isLoading: reviewsLoading } = useQuery(
     ['place-reviews', id],
     async () => {
-      const response = await axios.get(`/api/places/${id}/reviews`);
+      const response = await api.get(`/api/places/${id}/reviews`);
       return response.data;
     },
     { enabled: !!place }

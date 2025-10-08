@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import api from '../config/api';
 import { Search, Star, MapPin, Building2, Navigation } from 'lucide-react';
 
 const Places = () => {
@@ -22,7 +22,7 @@ const Places = () => {
         if (pincode) params.append('pincode', pincode);
         if (minRating) params.append('minRating', minRating);
 
-        const response = await axios.get(`/api/places?${params}`);
+        const response = await api.get(`/api/places?${params}`);
         return response.data && typeof response.data === 'object' 
           ? response.data 
           : { places: [], total: 0 };
@@ -38,7 +38,7 @@ const Places = () => {
     'categories',
     async () => {
       try {
-        const response = await axios.get('/api/places/categories');
+        const response = await api.get('/api/places/categories');
         return Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -52,7 +52,7 @@ const Places = () => {
     'cities',
     async () => {
       try {
-        const response = await axios.get('/api/places/cities');
+        const response = await api.get('/api/places/cities');
         return Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error('Error fetching cities:', error);
