@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { MapPin, User, LogOut, Menu, X, Shield, Search } from 'lucide-react';
-//import NeonLogo from "./NeonLogo";
+import NeonLogo from '../NeonLogo';
 // ...existing code...
 
 const Navbar = ({ isTransparent = false }) => {
@@ -45,15 +45,10 @@ const Navbar = ({ isTransparent = false }) => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <MapPin className={`h-8 w-8 ${shouldBeTransparent ? 'text-white' : 'text-primary-600'}`} />
-            <span className={`text-xl font-bold ${shouldBeTransparent ? 'text-white' : 'text-gray-900'}`}>
-              <img 
-                src="./logo3.png" 
-                alt="Know Your City Logo" 
-                className="h-8 w-auto" 
-                style={{height: '150px'}}
-              />
-            </span>
+            <NeonLogo 
+              size={shouldBeTransparent ? 'h-10 w-auto' : 'h-12 w-auto'} 
+              className="transition-all duration-300"
+            />
           </Link>
 
           {/* Desktop Navigation */}

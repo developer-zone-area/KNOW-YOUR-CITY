@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Build artifacts
+build/
+
+# Environment files
+.env
+.env.local
+
+# Test files
+*.test.js
+*.spec.js
+
+# Documentation
+README.md
