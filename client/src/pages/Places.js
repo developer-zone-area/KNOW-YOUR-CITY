@@ -11,18 +11,25 @@ const Places = () => {
   const [pincode, setPincode] = useState('');
   const [minRating, setMinRating] = useState('');
 
-  const { data, isLoading, error } = useQuery(
+  const { data = { places: [], total: 0 }, isLoading, error } = useQuery(
     ['places', searchTerm, selectedCategory, selectedCity, pincode, minRating],
     async () => {
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (selectedCategory) params.append('category', selectedCategory);
-      if (selectedCity) params.append('city', selectedCity);
-      if (pincode) params.append('pincode', pincode);
-      if (minRating) params.append('minRating', minRating);
+      try {
+        const params = new URLSearchParams();
+        if (searchTerm) params.append('search', searchTerm);
+        if (selectedCategory) params.append('category', selectedCategory);
+        if (selectedCity) params.append('city', selectedCity);
+        if (pincode) params.append('pincode', pincode);
+        if (minRating) params.append('minRating', minRating);
 
-      const response = await axios.get(`/api/places?${params}`);
-      return response.data;
+        const response = await axios.get(`/api/places?${params}`);
+        return response.data && typeof response.data === 'object' 
+          ? response.data 
+          : { places: [], total: 0 };
+      } catch (error) {
+        console.error('Error fetching places:', error);
+        return { places: [], total: 0 };
+      }
     }
   );
 
@@ -30,8 +37,13 @@ const Places = () => {
   const { data: categories = [] } = useQuery(
     'categories',
     async () => {
-      const response = await axios.get('/api/places/categories');
-      return response.data;
+      try {
+        const response = await axios.get('/api/places/categories');
+        return Array.isArray(response.data) ? response.data : [];
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        return [];
+      }
     }
   );
 
@@ -39,8 +51,13 @@ const Places = () => {
   const { data: cities = [] } = useQuery(
     'cities',
     async () => {
-      const response = await axios.get('/api/places/cities');
-      return response.data;
+      try {
+        const response = await axios.get('/api/places/cities');
+        return Array.isArray(response.data) ? response.data : [];
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+        return [];
+      }
     }
   );
 
@@ -123,7 +140,7 @@ const Places = () => {
               className="input-field"
             >
               <option value="">All Categories</option>
-              {categories.map((category) => (
+              {Array.isArray(categories) && categories.map((category) => (
                 <option key={category} value={category}>
                   {category.charAt(0).toUpperCase() + category.slice(1)}
                 </option>
@@ -137,7 +154,7 @@ const Places = () => {
               className="input-field"
             >
               <option value="">All Cities</option>
-              {cities.map((city) => (
+              {Array.isArray(cities) && cities.map((city) => (
                 <option key={city._id} value={city._id}>
                   {city.name}, {city.state}
                 </option>
@@ -160,7 +177,7 @@ const Places = () => {
         </div>
 
         {/* Places Grid */}
-        {data && data.places.length > 0 ? (
+        {data && Array.isArray(data.places) && data.places.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {data.places.map((place) => (

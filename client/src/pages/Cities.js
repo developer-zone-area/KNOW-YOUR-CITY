@@ -16,17 +16,22 @@ const Cities = () => {
     window.open(googleMapsUrl, '_blank');
   };
 
-  const { data: cities, isLoading, error } = useQuery(
+  const { data: cities = [], isLoading, error } = useQuery(
     ['cities', searchTerm, selectedState, selectedCountry, showFeatured],
     async () => {
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (selectedState) params.append('state', selectedState);
-      if (selectedCountry) params.append('country', selectedCountry);
-      if (showFeatured) params.append('featured', 'true');
+      try {
+        const params = new URLSearchParams();
+        if (searchTerm) params.append('search', searchTerm);
+        if (selectedState) params.append('state', selectedState);
+        if (selectedCountry) params.append('country', selectedCountry);
+        if (showFeatured) params.append('featured', 'true');
 
-      const response = await axios.get(`/api/cities?${params}`);
-      return response.data;
+        const response = await axios.get(`/api/cities?${params}`);
+        return Array.isArray(response.data) ? response.data : [];
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+        return [];
+      }
     }
   );
 
@@ -34,8 +39,13 @@ const Cities = () => {
   const { data: states = [] } = useQuery(
     'states',
     async () => {
-      const response = await axios.get('/api/cities/states');
-      return response.data;
+      try {
+        const response = await axios.get('/api/cities/states');
+        return Array.isArray(response.data) ? response.data : [];
+      } catch (error) {
+        console.error('Error fetching states:', error);
+        return [];
+      }
     }
   );
 
@@ -43,8 +53,13 @@ const Cities = () => {
   const { data: countries = [] } = useQuery(
     'countries',
     async () => {
-      const response = await axios.get('/api/cities/countries');
-      return response.data;
+      try {
+        const response = await axios.get('/api/cities/countries');
+        return Array.isArray(response.data) ? response.data : [];
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+        return [];
+      }
     }
   );
 
@@ -104,7 +119,7 @@ const Cities = () => {
               className="input-field"
             >
               <option value="">All States</option>
-              {states.map((state) => (
+              {Array.isArray(states) && states.map((state) => (
                 <option key={state} value={state}>
                   {state}
                 </option>
@@ -118,7 +133,7 @@ const Cities = () => {
               className="input-field"
             >
               <option value="">All Countries</option>
-              {countries.map((country) => (
+              {Array.isArray(countries) && countries.map((country) => (
                 <option key={country} value={country}>
                   {country}
                 </option>
@@ -142,7 +157,7 @@ const Cities = () => {
         </div>
 
         {/* Cities Grid */}
-        {cities && cities.length > 0 ? (
+        {Array.isArray(cities) && cities.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {cities.map((city) => (
               <Link
