@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { MapPin, User, LogOut, Menu, X, Shield, Search } from 'lucide-react';
-import NeonLogo from '../NeonLogo';
+import AnimatedLogoText from '../AnimatedLogoText';
 // ...existing code...
 
 const Navbar = ({ isTransparent = false }) => {
@@ -45,7 +45,7 @@ const Navbar = ({ isTransparent = false }) => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <NeonLogo 
+            <AnimatedLogoText 
               size={shouldBeTransparent ? 'h-10 w-auto' : 'h-12 w-auto'} 
               className="transition-all duration-300"
             />

@@ -92,7 +92,8 @@ const Carousel = () => {
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="auto"
+                key={slide.id}
               >
                 <source src={slide.src} type="video/mp4" />
                 Your browser does not support the video tag.
