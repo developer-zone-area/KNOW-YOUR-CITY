@@ -236,24 +236,87 @@ The application automatically creates the following collections:
 
 ## 🚀 Deployment
 
-### **Frontend Deployment (Vercel/Netlify)**
-1. Build the client: `cd client && npm run build`
-2. Deploy the `build` folder to your hosting service
-3. Update `CLIENT_URL` in your production environment
+### **Production Deployment Guide**
 
-### **Backend Deployment (Heroku/Railway)**
-1. Set up your production database
-2. Configure environment variables
-3. Deploy your server code
-4. Update CORS settings for your frontend URL
+#### **Prerequisites**
+- MongoDB Atlas database
+- Vercel account (for frontend)
+- Render account (for backend)
 
-### **Environment Variables for Production**
-```env
-NODE_ENV=production
-MONGODB_URI=your-production-mongodb-uri
-JWT_SECRET=your-production-jwt-secret
-CLIENT_URL=https://your-frontend-domain.com
+#### **Step 1: Backend Deployment (Render)**
+
+1. **Create a New Web Service** on [Render](https://dashboard.render.com)
+   - Connect your GitHub repository
+   - Select the `server` directory as the root directory
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+
+2. **Add Environment Variables** on Render:
+   ```env
+   NODE_ENV=production
+   MONGODB_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/know-your-city
+   JWT_SECRET=your-super-secret-jwt-key
+   CLIENT_URL=https://your-vercel-app.vercel.app
+   PORT=5000
+   ```
+
+3. **Deploy** - Render will automatically deploy your backend
+
+#### **Step 2: Frontend Deployment (Vercel)**
+
+1. **Create a New Project** on [Vercel](https://vercel.com/dashboard)
+   - Import your GitHub repository
+   - Framework Preset: Other
+   - Root Directory: Leave as is (uses `vercel.json` config)
+
+2. **Add Environment Variable** on Vercel:
+   - Go to: Settings → Environment Variables → Add New
+   ```
+   Name:  REACT_APP_API_URL
+   Value: https://your-render-service.onrender.com
+   
+   ✅ Production  ✅ Preview  ✅ Development
+   ```
+
+3. **Deploy** - Vercel will automatically build and deploy
+
+#### **Step 3: Update Backend CORS**
+
+After deploying frontend, update the `CLIENT_URL` on Render:
 ```
+CLIENT_URL=https://your-vercel-app.vercel.app
+```
+
+#### **Step 4: Verification**
+
+1. Visit your Vercel URL
+2. Check that data loads (cities, places, statistics)
+3. Test navigation and search
+4. Verify no CORS errors in browser console (F12)
+
+### **Local Development Setup**
+
+Create `client/.env` for local development:
+```env
+REACT_APP_API_URL=http://localhost:5000
+```
+
+Create `server/.env`:
+```env
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=your-secret-key
+CLIENT_URL=http://localhost:3000
+PORT=5000
+NODE_ENV=development
+```
+
+### **Important Notes**
+
+- ⚠️ **Never commit `.env` files** (already in `.gitignore`)
+- ⚠️ **Always use HTTPS** in production URLs
+- ⚠️ **Render free tier** sleeps after inactivity (~30 sec wake time)
+- ✅ Environment variables must be set on both platforms
+- ✅ Redeploy after changing environment variables
 
 ## 🤝 Contributing
 
