@@ -92,7 +92,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Carousel Hero Section */}
-      <div className="relative -mt-24 pt-24">
+      <div className="relative">
         <Carousel />
       </div>
 
