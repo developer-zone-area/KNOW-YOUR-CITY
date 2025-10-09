@@ -36,7 +36,7 @@ const Navbar = ({ isTransparent = false }) => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/30 backdrop-blur-sm border-b border-white/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24 relative">
           {/* Logo - Positioned to overlap header */}
@@ -58,10 +58,10 @@ const Navbar = ({ isTransparent = false }) => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-4 py-2 rounded-md text-base font-semibold transition-all ${
+                className={`px-4 py-2 rounded-lg text-base font-bold transition-all shadow-md ${
                   isActive(item.path)
-                    ? 'text-primary-600 bg-white shadow-sm'
-                    : 'text-gray-800 hover:text-primary-600 hover:bg-white/50'
+                    ? 'text-white bg-primary-600 shadow-lg'
+                    : 'text-gray-900 bg-white hover:bg-primary-600 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -78,7 +78,7 @@ const Navbar = ({ isTransparent = false }) => {
                 placeholder="Search places..."
                 value={globalSearch}
                 onChange={(e) => setGlobalSearch(e.target.value)}
-                className="pl-10 pr-4 py-2 w-64 text-sm rounded-md border border-gray-300 bg-white/70 backdrop-blur-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="pl-10 pr-4 py-2 w-64 text-sm rounded-lg border border-gray-300 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
             </form>
           </div>
@@ -90,7 +90,7 @@ const Navbar = ({ isTransparent = false }) => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="flex items-center space-x-1 text-sm font-semibold text-gray-800 hover:text-primary-600"
+                    className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-bold bg-white text-gray-900 hover:bg-primary-600 hover:text-white shadow-md transition-all"
                   >
                     <Shield className="h-5 w-5" />
                     <span>Admin</span>
@@ -98,14 +98,14 @@ const Navbar = ({ isTransparent = false }) => {
                 )}
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-1 text-sm font-semibold text-gray-800 hover:text-primary-600"
+                  className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-bold bg-white text-gray-900 hover:bg-primary-600 hover:text-white shadow-md transition-all"
                 >
                   <User className="h-5 w-5" />
                   <span>{user?.name}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-1 text-sm font-semibold text-gray-800 hover:text-red-600"
+                  className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-bold bg-white text-gray-900 hover:bg-red-600 hover:text-white shadow-md transition-all"
                 >
                   <LogOut className="h-5 w-5" />
                   <span>Logout</span>
@@ -115,13 +115,13 @@ const Navbar = ({ isTransparent = false }) => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-base font-semibold text-gray-800 hover:text-primary-600"
+                  className="px-4 py-2 rounded-lg text-base font-bold bg-white text-gray-900 hover:bg-gray-100 shadow-md transition-all"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="px-6 py-2.5 rounded-lg font-semibold bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg transition-all"
+                  className="px-6 py-2.5 rounded-lg font-bold bg-primary-600 text-white hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all"
                 >
                   Sign Up
                 </Link>
@@ -133,7 +133,7 @@ const Navbar = ({ isTransparent = false }) => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="focus:outline-none text-gray-800 hover:text-primary-600"
+              className="p-2 rounded-lg bg-white text-gray-900 hover:bg-primary-600 hover:text-white shadow-md transition-all focus:outline-none"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -146,16 +146,16 @@ const Navbar = ({ isTransparent = false }) => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white/90 backdrop-blur-md">
+          <div className="md:hidden bg-white shadow-lg rounded-b-lg">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`block px-3 py-2 rounded-md text-base font-semibold ${
+                  className={`block px-3 py-2 rounded-lg text-base font-bold shadow-sm ${
                     isActive(item.path)
-                      ? 'text-primary-600 bg-white shadow-sm'
-                      : 'text-gray-800 hover:text-primary-600 hover:bg-white/50'
+                      ? 'text-white bg-primary-600'
+                      : 'text-gray-900 bg-gray-50 hover:bg-primary-600 hover:text-white'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -168,7 +168,7 @@ const Navbar = ({ isTransparent = false }) => {
                   {isAdmin && (
                     <Link
                       to="/admin"
-                      className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:text-primary-600 hover:bg-white/50"
+                      className="flex items-center space-x-2 px-3 py-2 rounded-lg text-base font-bold text-gray-900 bg-gray-50 hover:bg-primary-600 hover:text-white shadow-sm"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <Shield className="h-5 w-5" />
@@ -177,7 +177,7 @@ const Navbar = ({ isTransparent = false }) => {
                   )}
                   <Link
                     to="/profile"
-                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:text-primary-600 hover:bg-white/50"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-base font-bold text-gray-900 bg-gray-50 hover:bg-primary-600 hover:text-white shadow-sm"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <User className="h-5 w-5" />
@@ -185,7 +185,7 @@ const Navbar = ({ isTransparent = false }) => {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-semibold w-full text-left text-gray-800 hover:text-red-600 hover:bg-white/50"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-base font-bold w-full text-left text-gray-900 bg-gray-50 hover:bg-red-600 hover:text-white shadow-sm"
                   >
                     <LogOut className="h-5 w-5" />
                     <span>Logout</span>
@@ -195,14 +195,14 @@ const Navbar = ({ isTransparent = false }) => {
                 <div className="pt-3 mt-3 space-y-1 border-t border-gray-200">
                   <Link
                     to="/login"
-                    className="block px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:text-primary-600 hover:bg-white/50"
+                    className="block px-3 py-2 rounded-lg text-base font-bold text-gray-900 bg-gray-50 hover:bg-gray-100 shadow-sm"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="block px-3 py-2 rounded-md text-base font-semibold bg-primary-600 text-white hover:bg-primary-700 shadow-md"
+                    className="block px-3 py-2 rounded-lg text-base font-bold bg-primary-600 text-white hover:bg-primary-700 shadow-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Sign Up
