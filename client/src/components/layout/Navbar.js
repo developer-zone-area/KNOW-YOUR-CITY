@@ -40,7 +40,7 @@ const Navbar = ({ isTransparent = false }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24 relative">
           {/* Logo - Positioned to overlap header */}
-          <Link to="/" className="absolute left-8 -top-10 z-60">
+          <Link to="/" className="absolute left-8 -top-6 z-60">
             <div className="transition-all hover:scale-105 drop-shadow-2xl">
               <AnimatedLogoText 
                 size="h-40 w-40" 

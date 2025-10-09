@@ -4,9 +4,9 @@ const AnimatedLogoText = ({ className = '', size = 'h-12 w-auto' }) => {
   return (
     <div className={`relative inline-block ${className}`}>
       <img
-        src="/logo3.jpg"
+        src="/logo3.png"
         alt="Know Your City Logo"
-        className={`${size} rounded-full object-cover`}
+        className={`${size} object-cover`}
       />
     </div>
   );
