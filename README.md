@@ -330,19 +330,28 @@ NODE_ENV=development
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 📚 Documentation
+
+For comprehensive documentation, see:
+
+- **[📖 Project Wiki](WIKI.md)** - Complete reference guide with detailed documentation
+- **[🗺️ Map Features Guide](MAP_FEATURES_OVERVIEW.md)** - Interactive map functionality
+- **[🚀 Quick Start](MAP_QUICK_START.md)** - Getting started with maps
+
 ## 🆘 Support
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/yourusername/know-your-city/issues) page
-2. Create a new issue with detailed information
-3. Contact the development team
+1. Check the [Project Wiki](WIKI.md) for detailed documentation
+2. Review the [Issues](https://github.com/yourusername/know-your-city/issues) page
+3. Create a new issue with detailed information
+4. Contact the development team
 
 ## 🎯 Roadmap
 
 ### **Upcoming Features**
+- [x] **Interactive Maps** - ✅ Leaflet/OpenStreetMap integration (COMPLETED!)
 - [ ] **Advanced Search Filters** - Filter by category, rating, distance
-- [ ] **Interactive Maps** - Google Maps integration
 - [ ] **Social Features** - User following, social sharing
 - [ ] **Mobile App** - React Native version
 - [ ] **API Documentation** - Swagger/OpenAPI docs
