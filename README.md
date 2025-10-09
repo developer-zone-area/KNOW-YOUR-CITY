@@ -332,11 +332,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📚 Documentation
 
-For comprehensive documentation, see:
-
-- **[📖 Project Wiki](WIKI.md)** - Complete reference guide with detailed documentation
-- **[🗺️ Map Features Guide](MAP_FEATURES_OVERVIEW.md)** - Interactive map functionality
-- **[🚀 Quick Start](MAP_QUICK_START.md)** - Getting started with maps
+For comprehensive documentation, see the **[📖 Project Wiki](WIKI.md)**:
+- Complete API documentation
+- Components reference
+- Database schema
+- Deployment guide
+- Map features guide
+- Security best practices
+- Troubleshooting & FAQ
 
 ## 🆘 Support
 
