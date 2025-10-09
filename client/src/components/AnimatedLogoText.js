@@ -6,7 +6,7 @@ const AnimatedLogoText = ({ className = '', size = 'h-12 w-auto' }) => {
       <img
         src="/logo3.jpg"
         alt="Know Your City Logo"
-        className={`${size} rounded-lg`}
+        className={`${size} rounded-full object-cover`}
       />
     </div>
   );

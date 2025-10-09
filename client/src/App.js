@@ -43,8 +43,8 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {!isHomePage && <Navbar />}
-      <main>
+      <Navbar />
+      <main className="pt-20">
               <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} />
