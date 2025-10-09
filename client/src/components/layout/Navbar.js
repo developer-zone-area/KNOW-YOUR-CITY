@@ -36,21 +36,21 @@ const Navbar = ({ isTransparent = false }) => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/30 backdrop-blur-sm border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20 relative">
+        <div className="flex justify-between items-center h-24 relative">
           {/* Logo - Positioned to overlap header */}
-          <Link to="/" className="absolute left-4 -top-4 z-60">
-            <div className="bg-white rounded-full p-2 shadow-lg border-4 border-white hover:shadow-xl transition-shadow">
+          <Link to="/" className="absolute left-8 -top-10 z-60">
+            <div className="bg-white rounded-full p-3 shadow-2xl border-4 border-white hover:shadow-3xl transition-all hover:scale-105">
               <AnimatedLogoText 
-                size="h-24 w-24" 
+                size="h-40 w-40" 
                 className="transition-all duration-300"
               />
             </div>
           </Link>
           
           {/* Spacer for logo */}
-          <div className="w-32"></div>
+          <div className="w-48"></div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -58,10 +58,10 @@ const Navbar = ({ isTransparent = false }) => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-md text-base font-semibold transition-all ${
                   isActive(item.path)
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                    ? 'text-primary-600 bg-white shadow-sm'
+                    : 'text-gray-800 hover:text-primary-600 hover:bg-white/50'
                 }`}
               >
                 {item.label}
@@ -71,14 +71,14 @@ const Navbar = ({ isTransparent = false }) => {
             {/* Global Search */}
             <form onSubmit={handleGlobalSearch} className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
+                <Search className="h-4 w-4 text-gray-500" />
               </div>
               <input
                 type="text"
                 placeholder="Search places..."
                 value={globalSearch}
                 onChange={(e) => setGlobalSearch(e.target.value)}
-                className="pl-10 pr-4 py-2 w-64 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="pl-10 pr-4 py-2 w-64 text-sm rounded-md border border-gray-300 bg-white/70 backdrop-blur-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
             </form>
           </div>
@@ -90,24 +90,24 @@ const Navbar = ({ isTransparent = false }) => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-primary-600"
+                    className="flex items-center space-x-1 text-sm font-semibold text-gray-800 hover:text-primary-600"
                   >
-                    <Shield className="h-4 w-4" />
+                    <Shield className="h-5 w-5" />
                     <span>Admin</span>
                   </Link>
                 )}
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-primary-600"
+                  className="flex items-center space-x-1 text-sm font-semibold text-gray-800 hover:text-primary-600"
                 >
-                  <User className="h-4 w-4" />
+                  <User className="h-5 w-5" />
                   <span>{user?.name}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-red-600"
+                  className="flex items-center space-x-1 text-sm font-semibold text-gray-800 hover:text-red-600"
                 >
-                  <LogOut className="h-4 w-4" />
+                  <LogOut className="h-5 w-5" />
                   <span>Logout</span>
                 </button>
               </div>
@@ -115,13 +115,13 @@ const Navbar = ({ isTransparent = false }) => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-gray-700 hover:text-primary-600"
+                  className="text-base font-semibold text-gray-800 hover:text-primary-600"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 rounded-lg font-medium bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                  className="px-6 py-2.5 rounded-lg font-semibold bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg transition-all"
                 >
                   Sign Up
                 </Link>
@@ -133,7 +133,7 @@ const Navbar = ({ isTransparent = false }) => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="focus:outline-none text-gray-700 hover:text-primary-600"
+              className="focus:outline-none text-gray-800 hover:text-primary-600"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -146,16 +146,16 @@ const Navbar = ({ isTransparent = false }) => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
+          <div className="md:hidden bg-white/90 backdrop-blur-md">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  className={`block px-3 py-2 rounded-md text-base font-semibold ${
                     isActive(item.path)
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                      ? 'text-primary-600 bg-white shadow-sm'
+                      : 'text-gray-800 hover:text-primary-600 hover:bg-white/50'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -168,7 +168,7 @@ const Navbar = ({ isTransparent = false }) => {
                   {isAdmin && (
                     <Link
                       to="/admin"
-                      className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                      className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:text-primary-600 hover:bg-white/50"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <Shield className="h-5 w-5" />
@@ -177,7 +177,7 @@ const Navbar = ({ isTransparent = false }) => {
                   )}
                   <Link
                     to="/profile"
-                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:text-primary-600 hover:bg-white/50"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <User className="h-5 w-5" />
@@ -185,7 +185,7 @@ const Navbar = ({ isTransparent = false }) => {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium w-full text-left text-gray-700 hover:text-red-600 hover:bg-gray-50"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-semibold w-full text-left text-gray-800 hover:text-red-600 hover:bg-white/50"
                   >
                     <LogOut className="h-5 w-5" />
                     <span>Logout</span>
@@ -195,14 +195,14 @@ const Navbar = ({ isTransparent = false }) => {
                 <div className="pt-3 mt-3 space-y-1 border-t border-gray-200">
                   <Link
                     to="/login"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    className="block px-3 py-2 rounded-md text-base font-semibold text-gray-800 hover:text-primary-600 hover:bg-white/50"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="block px-3 py-2 rounded-md text-base font-medium bg-primary-600 text-white hover:bg-primary-700"
+                    className="block px-3 py-2 rounded-md text-base font-semibold bg-primary-600 text-white hover:bg-primary-700 shadow-md"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Sign Up
