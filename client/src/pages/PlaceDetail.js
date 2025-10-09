@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import api from '../config/api';
 import { useAuth } from '../contexts/AuthContext';
 import { Star, MapPin, Phone, Globe } from 'lucide-react';
+import MapView from '../components/MapView';
 
 const PlaceDetail = () => {
   const { id } = useParams();
@@ -89,6 +90,36 @@ const PlaceDetail = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">About</h2>
               <p className="text-gray-600 leading-relaxed">{place.description}</p>
             </div>
+
+            {/* Map Location */}
+            {place.coordinates?.latitude && place.coordinates?.longitude && (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Location</h2>
+                <MapView
+                  latitude={place.coordinates.latitude}
+                  longitude={place.coordinates.longitude}
+                  placeName={place.name}
+                  address={place.address?.fullAddress}
+                  height="450px"
+                />
+                <div className="mt-4 flex items-center justify-between">
+                  <div className="flex items-center text-gray-600">
+                    <MapPin className="h-5 w-5 mr-2" />
+                    <span className="text-sm">
+                      Coordinates: {place.coordinates.latitude.toFixed(6)}, {place.coordinates.longitude.toFixed(6)}
+                    </span>
+                  </div>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${place.coordinates.latitude},${place.coordinates.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                  >
+                    Open in Google Maps →
+                  </a>
+                </div>
+              </div>
+            )}
 
             {/* Reviews */}
             <div className="bg-white rounded-lg shadow-md p-6">

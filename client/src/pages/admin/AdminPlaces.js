@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import api from '../../config/api';
-import { Check, X, Search, Eye } from 'lucide-react';
+import { Check, X, Search, Eye, MapPin } from 'lucide-react';
+import MapModal from '../../components/MapModal';
 
 const AdminPlaces = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const { data: places, isLoading, refetch } = useQuery(
     'admin-places',
@@ -22,6 +25,11 @@ const AdminPlaces = () => {
     } catch (error) {
       console.error('Error updating place status:', error);
     }
+  };
+
+  const handleViewMap = (place) => {
+    setSelectedPlace(place);
+    setIsMapModalOpen(true);
   };
 
   if (isLoading) {
@@ -139,8 +147,19 @@ const AdminPlaces = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
-                        <button className="text-blue-600 hover:text-blue-900">
+                        <button 
+                          className="text-blue-600 hover:text-blue-900"
+                          onClick={() => window.open(`/places/${place._id}`, '_blank')}
+                          title="View Details"
+                        >
                           <Eye className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleViewMap(place)}
+                          className="text-purple-600 hover:text-purple-900"
+                          title="View on Map"
+                        >
+                          <MapPin className="h-4 w-4" />
                         </button>
                         {place.status === 'pending' && (
                           <>
@@ -174,6 +193,13 @@ const AdminPlaces = () => {
             <p className="text-gray-500">No places found matching your criteria.</p>
           </div>
         )}
+
+        {/* Map Modal */}
+        <MapModal
+          isOpen={isMapModalOpen}
+          onClose={() => setIsMapModalOpen(false)}
+          place={selectedPlace}
+        />
       </div>
     </div>
   );
