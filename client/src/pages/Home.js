@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import api from '../config/api';
 import { MapPin, Star, Users, TrendingUp, ArrowRight } from 'lucide-react';
 import Carousel from '../components/Carousel';
-import Navbar from '../components/layout/Navbar';
 
 // Animation variants
 const containerVariants = {
@@ -92,13 +91,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Carousel Hero Section with Overlay Navbar */}
-      <div className="relative">
+      {/* Carousel Hero Section */}
+      <div className="relative -mt-24 pt-24">
         <Carousel />
-        {/* Navbar Overlay */}
-        <div className="absolute top-0 left-0 right-0 z-50">
-          <Navbar isTransparent={true} />
-        </div>
       </div>
 
       {/* Stats Section */}
