@@ -167,48 +167,7 @@
     }
   }
 
-  /* Neon Logo Animations */
-  @keyframes pulse-glow {
-    0%, 100% {
-      filter: brightness(1.1) contrast(1.2) drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
-    }
-    50% {
-      filter: brightness(1.3) contrast(1.4) drop-shadow(0 0 15px rgba(255, 0, 255, 0.8));
-    }
-  }
-
-  @keyframes neon-flicker {
-    0%, 100% {
-      filter: drop-shadow(0 0 5px #00ff00) drop-shadow(0 0 10px #00ff00);
-    }
-    10% {
-      filter: drop-shadow(0 0 2px #00ff00) drop-shadow(0 0 5px #00ff00);
-    }
-    20% {
-      filter: drop-shadow(0 0 10px #00ff00) drop-shadow(0 0 20px #00ff00);
-    }
-    30% {
-      filter: drop-shadow(0 0 5px #00ff00) drop-shadow(0 0 10px #00ff00);
-    }
-    40% {
-      filter: drop-shadow(0 0 15px #00ff00) drop-shadow(0 0 30px #00ff00);
-    }
-    50% {
-      filter: drop-shadow(0 0 8px #00ff00) drop-shadow(0 0 16px #00ff00);
-    }
-    60% {
-      filter: drop-shadow(0 0 12px #00ff00) drop-shadow(0 0 24px #00ff00);
-    }
-    70% {
-      filter: drop-shadow(0 0 6px #00ff00) drop-shadow(0 0 12px #00ff00);
-    }
-    80% {
-      filter: drop-shadow(0 0 18px #00ff00) drop-shadow(0 0 36px #00ff00);
-    }
-    90% {
-      filter: drop-shadow(0 0 9px #00ff00) drop-shadow(0 0 18px #00ff00);
-    }
-  }
+  /* Logo animations removed for cleaner look */
 }
 
 /* Scroll reveal utility */
