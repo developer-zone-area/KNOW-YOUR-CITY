@@ -3,5 +3,6 @@
     "silent": true
   },
   "buildCommand": "npm run vercel-build",
-  "outputDirectory": "client/build"
+  "outputDirectory": "build",
+  "installCommand": "npm install"
 }
