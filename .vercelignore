@@ -1,8 +1,5 @@
 # Server files
 server/
-node_modules/
-package.json
-package-lock.json
 
 # Documentation files
 README.md
@@ -25,7 +22,3 @@ env.production.template
 
 # Test files
 test-deployment.js
-
-# Build artifacts
-build/
-dist/

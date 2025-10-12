@@ -2,8 +2,6 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "npm install --prefix client && npm run build --prefix client",
-  "outputDirectory": "client/build",
-  "installCommand": "echo 'Skipping default install'",
-  "framework": null
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "client/build"
 }
